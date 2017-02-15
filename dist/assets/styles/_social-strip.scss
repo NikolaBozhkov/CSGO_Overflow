@@ -1,0 +1,130 @@
+@media (max-width: $screen-md - 1) {
+    .social-strip {
+        display: none;
+    }
+}
+
+.logo-wrapper {
+    margin: 20px;
+}
+
+.logo {
+    max-width: 100%;
+
+    @keyframes logoAnimation {
+        20% {
+            transform: scale(1.2);
+        }
+
+        30%, 60%, 80%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        70% {
+            transform: scale(1.05);
+        }
+
+        90% {
+            transform: scale(1.03);
+        }
+    }
+
+    &:hover {
+        animation: logoAnimation 1s;
+    }
+}
+
+.chat-widget {
+    overflow-y: hidden;
+}
+
+
+
+#messages-container {
+    @extend .flexbox, .flexbox-col;
+    flex: 1;
+    overflow-y: auto;
+    background-color: $bg-color-primary;
+
+    &.scroll-style::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    // Scrollbar color transition
+    &:hover.scroll-style::-webkit-scrollbar-thumb {
+        background-color: $bg-color-highlight;
+    }
+
+    .media {
+        flex-shrink: 0;
+        margin-top: 8px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        .text {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+
+            -ms-word-break: break-all;
+            word-break: break-word;
+
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+
+            &.bot {
+                color: lighten($color-highlight, 7%);
+            }
+        }
+
+        .media-heading {
+            @extend .flexbox;
+            justify-content: space-between;
+            align-items: center;
+
+            &.bot, &.bot .small {
+                color: $brand-warning;
+            }
+
+            &.admin {
+                color: $rarity-ancient;
+            }
+
+            a {
+                color: inherit;
+            }
+        }
+    }
+}
+
+.social-info {
+    @extend .flexbox;
+    justify-content: space-between;
+    padding: $padding-base-vertical 0 $padding-base-vertical;
+
+    a {
+        font-size: 1.8em;
+        margin-right: $padding-base-horizontal;
+        color: $text-color;
+        transition: color .25s;
+
+        &:hover {
+            color: $color-highlight;
+        }
+    }
+}
+
+#messages-container, .social-info, .chat-input {
+    margin-bottom: $padding-large-vertical;
+}
+
+.chat-input, #messages-container {
+    padding: 0 $padding-base-horizontal 0 $padding-base-horizontal;
+}

@@ -1,0 +1,110 @@
+.items-list, .item {
+    @extend .flexbox;
+}
+
+marketplace {
+    display: block;
+    flex: 1;
+
+    .fa-tint {
+        position: relative;
+        top: 0.5px;
+    }
+}
+
+.items-list {
+    justify-content: center;
+
+    padding: $padding-base-horizontal;
+    padding-top: 140px;
+    padding-right: 0;
+
+    .item {
+        @extend .info-box, .flexbox-col;
+        position: relative;
+        width: 198px;
+        height: 240px;
+
+        .stattrak {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1em solid transparent;
+            border-top-color: $rarity-stattrak;
+            border-left-color: $rarity-stattrak;
+            border-top-left-radius: $border-radius-base;
+        }
+
+        .item-img {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            padding: 0 9px;
+            max-height: 180px;
+        }
+
+        .name-label {
+            transition: all 0.25s;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        &.selected {
+            box-shadow:0 0 2px 2px $color-highlight;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .rarity-common {
+                background-color: $rarity-common;
+            }
+            .rarity-uncommon {
+                background-color: $rarity-uncommon;
+            }
+            .rarity-rare {
+                background-color: $rarity-rare;
+            }
+            .rarity-mythical {
+                background-color: $rarity-mythical;
+            }
+            .rarity-legendary {
+                background-color: $rarity-legendary;
+            }
+            .rarity-ancient {
+                background-color: $rarity-ancient;
+            }
+        }
+
+        .item-info {
+            margin-top: auto;
+
+            .price-label {
+                background-color: rgba(0, 0, 0, 0.15);
+            }
+
+            .item-wear {
+                display: block;
+                text-align: center;
+                font-size: 0.9em;
+                color: lighten($gray, 50%);
+                padding-bottom: $padding-xs-vertical;
+            }
+        }
+
+
+        &:empty {
+            height: 0;
+        }
+    }
+}
+
+.options {
+    .fa {
+        font-size: 2em;
+    }
+}
+
+marketplace .stick-top .info-box {
+    margin-right: 0;
+}

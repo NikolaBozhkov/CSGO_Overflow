@@ -1,0 +1,53 @@
+<div class="stick-top">
+    <div class="info-box">
+        <span class="total-label label-left">TOTAL: {{formatPrice(totalPrice)}} <i class="fa fa-tint"></i></span>
+        <button class="btn btn-success" [class.disabled]="checkoutDisabled" (click)="checkout()">CHECKOUT</button>
+    </div>
+
+    <div class="options">
+        <div class="info-box">
+            <span class="sort-label label-left">Drops</span>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" (click)="sortItemsByPrice()"><i class="fa fa-sort-numeric-asc"></i></button>
+                <button class="btn btn-default" (click)="sortItemsByPrice(true)"><i class="fa fa-sort-numeric-desc"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="items-list">
+    <div class="item" *ngFor="let item of items" [class.selected]="item.selected" (click)="selectItem(item)">
+        <div *ngIf="item.stattrak" class="stattrak"></div>
+        <span class="name-label label-top rarity-{{item.rarity | lowercase}}">{{item.name}}</span>
+        <img class="item-img" src="{{item.img + '/180fx180f'}}" />
+        <div class="item-info">
+            <span class="item-wear">{{item.wear}}</span>
+            <span class="price-label label-bottom">{{formatPrice(item.price)}}&nbsp;&nbsp;<i class="fa fa-tint"></i></span>
+        </div>
+    </div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+</div>
+
+<modal #withdrawModal class="withdraw-modal">
+    <modal-header [show-close]="true">
+        <h4 class="text-primary text-center">Trade Instructions!</h4>
+    </modal-header>
+    <modal-body>
+        <span>Bot is down and withdrawing is manual, please follow these instructions:</span>
+        <br>
+        <span>1. Send email to support@csgooverflow.com with the item description and your Steam64 ID.</span>
+        <br>
+        <span>2. Keep enough drops in static, so you can be charged, otherwise it won't work.</span>
+        <br>
+        <span>3. Expect a confirmation email and a trade offer within 12 hours.</span>
+        <br>
+        <button class="btn btn-primary center-block" (click)="withdrawModal.dismiss()">Got it!</button>
+    </modal-body>
+</modal>

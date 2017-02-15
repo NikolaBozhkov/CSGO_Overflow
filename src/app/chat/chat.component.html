@@ -1,0 +1,18 @@
+<div id="messages-container" class="scroll-style">
+    <div class="media" *ngFor="let message of messages">
+        <a class="pull-left clearfix">
+            <img class="media-object img-circle" [src]="message.avatarUrl" alt="" width="32" height="32">
+        </a>
+        <div class="media-body">
+            <h5 class="media-heading {{message.source}}">
+                <a *ngIf="message.id" href="http://steamcommunity.com/profiles/{{message.id}}" target="_blank">{{message.username}}</a>
+                <span *ngIf="!message.id">{{message.username}}</span>
+                <span class="small">{{message.time}}</span>
+            </h5>
+            <span class="small text-muted text {{message.source}}"><strong>{{message.text}}</strong></span>
+        </div>
+    </div>
+</div>
+<div class="chat-input" *ngIf="isUserLoggedIn">
+    <input #message (keyup.enter)="sendMessage(message)" type="text" class="form-control">
+</div>

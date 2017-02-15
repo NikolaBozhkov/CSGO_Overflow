@@ -1,0 +1,106 @@
+<div id="app-container" class="container-fluid">
+    <simple-notifications [options]="options"></simple-notifications>
+    <!-- all content -->
+    <div class="row noscroll">
+        <!-- Logo and chat -->
+        <div class="col-md-2 flexbox flexbox-col stretch-height border border-right social-strip">
+                <!-- Logo -->
+            <div class="row border border-bottom">
+                <div class="logo-wrapper">
+                    <img class="logo" src="assets/csgo-overflow-logo_final_bare.png" alt="Logo" />
+                </div>
+            </div>
+            <!-- Social links and users online -->
+            <div class="social-info">
+                <div class="social-media">
+                    <a href="https://steamcommunity.com/groups/csgooverflow" target="_blank"><i class="fa fa-steam-square"></i></a>
+                    <a href="https://www.facebook.com/csgooverflow" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://twitter.com/csgo_overflow" target="_blank"><i class="fa fa-twitter-square"></i></a>
+                </div>
+                <div class="users-online">{{onlineUsers}} Online</div>
+            </div>
+            <!-- Comments -->
+            <chat-widget [isUserLoggedIn]="isUserLoggedIn()" [user]="user" class="row flexbox flexbox-col flex-fill chat-widget"></chat-widget>
+        </div>
+        <!-- navigation and content -->
+        <div class="col-md-10 flexbox flexbox-col stretch-height noscroll">
+            <div class="row flexbox flexbox-right-align nav-info desktop-only">
+                <a [routerLink]="['/terms/general-terms']" [routerLinkActive]="['active']" (touchend)="$event.target.click()">Terms</a>
+                <a [routerLink]="['/contacts']" [routerLinkActive]="['active']" (touchend)="$event.target.click()">Contacts</a>
+            </div>
+            <nav class="row nav-wrapper">
+                <div *ngIf="user" class="currency-panel">
+                    <span class="currency currency-total" tooltipPlacement="top" tooltip="Total Drops">
+                        {{util.formatNumber(user.staticCurrency + user.activeCurrency)}}&nbsp;&nbsp;<i class="fa fa-tint text-primary"></i></span>
+                    <span class="currency currency-static" tooltipPlacement="top" tooltip="Static Drops">
+                        <span *ngFor="let item of animatedStaticChanges" class="float-away {{item.textClass}}">
+                            {{item.text}}&nbsp;&nbsp;<i class="fa fa-tint"></i>
+                        </span>
+                        {{util.formatNumber(user.staticCurrency)}}&nbsp;&nbsp;<i class="fa fa-tint text-success"></i>
+                    </span>
+                    <span class="currency currency-active" tooltipPlacement="top" tooltip="Active Drops">
+                        <span *ngFor="let item of animatedActiveChanges" class="float-away {{item.textClass}}">
+                            {{item.text}}&nbsp;&nbsp;<i class="fa fa-tint"></i>
+                        </span>
+                        {{util.formatNumber(user.activeCurrency)}}&nbsp;&nbsp;<i class="fa fa-tint text-danger"></i>
+                    </span>
+                </div>
+                <div class="logo-small-wrapper">
+                    <img class="logo-small" src="assets/csgo-overflow-logo_final_bare.png" alt="Logo" />
+                </div>
+                <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                <label for="nav-trigger" class="mobile-only"><i class="fa fa-bars"></i></label>
+                <div class="nav-custom nav-horizontal">
+                    <a *ngIf="isUserLoggedIn()" [routerLinkActive]="['active']" (touchend)="$event.target.click()" [routerLink]="['/account']"><i class="fa fa-fw fa-user" ></i> Account</a>
+                    <a [routerLinkActive]="['active']" [routerLink]="['/game']" (touchend)="$event.target.click()" class="mobile-only"><i class="fa fa-fw fa-circle-o-notch"></i> Game</a>
+                    <a [routerLinkActive]="['active']" (touchend)="$event.target.click()" [routerLink]="['/advertisements']"><i class="fa fa-fw fa-tint"></i> Advertisements</a>
+                    <a *ngIf="isUserLoggedIn()" [routerLinkActive]="['active']" [routerLink]="['/statistics']" (touchend)="$event.target.click()" class="mobile-only"><i class="fa fa-fw fa-area-chart"></i> Statistics</a>
+                    <a [routerLinkActive]="['active']" (touchend)="$event.target.click()" [routerLink]="['/marketplace']"><i class="fa fa-fw fa-shopping-cart"></i> Marketplace</a>
+                    <a *ngIf="!isUserLoggedIn()" (touchend)="$event.target.click()" (click)="checkAcceptanceCookie()" class="hide-dot"><i class="fa fa-fw fa-steam"></i> Steam Login</a>
+                    <a [routerLinkActive]="['active']" [routerLink]="['/faq']" (touchend)="$event.target.click()" class="mobile-only"><i class="fa fa-fw fa-question-circle-o"></i> FAQ</a>
+                    <a class="mobile-only" [routerLink]="['/contacts']" [routerLinkActive]="['active']" (touchend)="$event.target.click()"><i class="fa fa-fw fa-envelope"></i> Contacts</a>
+                    <a class="mobile-only" [routerLink]="['/terms/general-terms']" [routerLinkActive]="['active']" (touchend)="$event.target.click()"><i class="fa fa-fw fa-file-text"></i> Terms</a>
+                    <a *ngIf="isUserLoggedIn()" (touchend)="$event.target.click()" (click)="userService.logout()" class="hide-dot"><i class="fa fa-fw fa-minus-circle"></i> Logout</a>
+                </div>
+            </nav>
+            <div class="row flexbox flexbox-row flex-fill">
+                <!-- game navigation -->
+                <div class="nav-custom nav-vertical flexbox flexbox-col border border-top desktop-only">
+                    <a [routerLinkActive]="['active']" [routerLink]="['/game']" tooltipPlacement="right" tooltip="Game" (touchend)="$event.target.click()">
+                        <i class="fa fa-circle-o-notch"></i>
+                    </a>
+                    <a *ngIf="isUserLoggedIn()" [routerLinkActive]="['active']" [routerLink]="['/statistics']" tooltipPlacement="right" tooltip="Statistics" (touchend)="$event.target.click()">
+                        <i class="fa fa-area-chart"></i>
+                    </a>
+                    <a [routerLinkActive]="['active']" [routerLink]="['/faq']" tooltipPlacement="right" tooltip="FAQ" (touchend)="$event.target.click()">
+                        <i class="fa fa-question-circle-o"></i>
+                    </a>
+                </div>
+                <!--Used to stick buttons to the top, without scrolling them out-->
+                <div class="content-wrapper scroll-style flexbox flex-fill">
+                    <div class="content-container flexbox flexbox-col scroll-style flex-fill">
+                        <div class="router-outlet">
+                            <router-outlet></router-outlet>
+                        </div>
+                        <div class="footer">
+                            <span class="center-block">Copyright © 2016. All Rights Reserved, Nikola Bozhkov</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal #acceptanceModal class="acceptance-modal">
+    <modal-header [show-close]="true">
+        <h4 class="text-center">ACCEPTANCE</h4>
+    </modal-header>
+    <modal-body>
+        <div class="text-center">
+            By clicking the button below you acknowledge that you have read and agree to the <a [routerLink]="['/terms/general-terms']" (click)="acceptanceModal.dismiss()">Terms and Conditions</a>.
+        </div>
+        <br>
+        <a class="btn btn-primary center-block" (click)="setAcceptanceCookie()" href="auth/steam">I Agree</a>
+    </modal-body>
+</modal>

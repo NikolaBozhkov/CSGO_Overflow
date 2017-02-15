@@ -1,0 +1,52 @@
+.pop-under-modal {
+    .modal-dialog {
+        @extend .flexbox;
+        align-items: center;
+        justify-content: center;
+
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .modal-content {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        background-color: transparent;
+    }
+}
+
+dropper {
+    @extend .flexbox, .flexbox-col, .padding-full;
+    max-width: 600px;
+
+    @media(max-width: $screen-sm-max) {
+        margin: 0 auto;
+    }
+
+    .info-box {
+        margin-right: 0;
+    }
+
+    & > *:not(:last-child) {
+        margin-bottom: $padding-base-horizontal;
+    }
+
+    .surveys-container {
+        @extend .flexbox;
+
+        a {
+            min-width: 50%;
+            flex-grow: 1;
+             img {
+                 max-height: 25px;
+             }
+        }
+    }
+
+    .description {
+        display: block;
+        align-content: center;
+        padding: 0 $padding-base-horizontal $padding-base-vertical;
+    }
+}

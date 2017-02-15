@@ -1,0 +1,42 @@
+<div *ngIf="user" class="account-container">
+    <div class="account-settings col-sm-6">
+        <div class="level-view flexbox">
+            <span class="level">{{user.level}}</span>
+            <div class="exp-view">
+                <div class="flexbox flexbox-space-between">
+                    <span class="text-uppercase">Level</span>
+                    <!-- Experience from total and percentage -->
+                    <span class="exp-info text-right">
+                        {{user.experience}} / {{user.experienceTreshold}}
+                        &nbsp;{{user.getExperiencePercent()}}%
+                    </span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" [ngStyle]="{'width': user.getExperiencePercent() + '%'}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="currency-options">
+            <input class="form-control" (input)="transferAmount = $event.target.value" type="number" placeholder="Amount to transfer" />
+            <div class="btn-group">
+                <button class="btn btn-default btn-tooltip" (click)="transferCurrency()">
+                    <i class="fa fa-tint text-success" tooltipPlacement="top" tooltip="To Static"></i></button>
+                <button class="btn btn-default btn-tooltip" (click)="transferCurrency(true)">
+                    <i class="fa fa-tint text-danger" tooltipPlacement="top" tooltip="To Active"></i></button>
+            </div>
+        </div>
+
+        <div class="text-big">
+            Referral link (get <span class="text-primary">1,500 <i class="fa fa-tint"></i></span> for every user who reaches level 3!):
+            <br><span class="text-primary">csgooverflow.com/{{user.id}}</span>
+        </div>
+
+        <label for="trade-url-input"><a href="https://steamcommunity.com/id/me/tradeoffers/privacy" target="-_blank">Steam Trade URL:</a></label>
+        <input class="form-control" type="text" id="trade-url-input" (keyup)="saveTradeUrlFromEnter($event)" (focusout)="saveTradeUrl($event.target.value)" value="{{user.tradeUrl}}"/>
+    </div>
+
+    <div class="abilities-view col-sm-6">
+
+    </div>
+</div>

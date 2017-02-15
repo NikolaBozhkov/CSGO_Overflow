@@ -1,0 +1,64 @@
+.level-view {
+    white-space: nowrap;
+    font-weight: 700;
+    margin-bottom: 20px;
+
+    .progress {
+        margin-bottom: 0;
+    }
+
+    .exp-view {
+        padding: 0 $padding-base-horizontal;
+        flex: 1;
+    }
+
+    .exp-info, .gained-exp {
+        opacity: .9;
+    }
+
+    .gained-exp, .level {
+        align-self: flex-end;
+    }
+
+    .level {
+        padding: 0;
+        line-height: 0.77em;
+        font-size: 3.4em;
+    }
+}
+
+.account-container {
+    .account-settings, .abilities-view {
+        padding: $padding-large-vertical $padding-large-horizontal;
+    }
+
+    .account-settings > *:not(:last-child):not(label) {
+        margin-bottom: $padding-base-horizontal;
+    }
+
+    .level-view {
+        .exp-view {
+            padding-right: 0;
+        }
+    }
+
+    .currency-options {
+        &, .btn-group {
+            @extend .flexbox;
+        }
+
+        .form-control {
+            flex: 1;
+            margin-right: $padding-base-horizontal;
+        }
+
+        .fa {
+            font-size: 1.5em;
+        }
+    }
+
+    .text-big {
+        font-weight: 700;
+        font-size: 1.1em;
+    }
+}

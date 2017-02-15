@@ -1,0 +1,8 @@
+.padding-horizontal-bottom {
+    padding: 0 $padding-large-horizontal $padding-large-horizontal $padding-large-horizontal;
+}
+
+.padding-full {
+    padding: $padding-large-vertical $padding-large-horizontal;
+    padding-bottom: 0;
+}

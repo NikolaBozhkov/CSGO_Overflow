@@ -1,0 +1,113 @@
+<div class="game-table-options">
+    <div class="attack-amount-panel">
+        <div class="amount-buttons-container">
+            <button (click)="attackAmount = user ? user.activeCurrency : 0">Max</button>
+            <button (click)="changeAttackAmount(2, '*')">2x</button>
+            <button (click)="changeAttackAmount(50, '+')">+50</button>
+            <button (click)="changeAttackAmount(200, '+')">+200</button>
+            <button (click)="changeAttackAmount(1000, '+')">+1000</button>
+        </div>
+        <div class="amount-buttons-container">
+            <button (click)="attackAmount = minAttackAmount">Min</button>
+            <button (click)="changeAttackAmount(2, '/')">0.5x</button>
+            <button (click)="changeAttackAmount(50, '-')">-50</button>
+            <button (click)="changeAttackAmount(200, '-')">-200</button>
+            <button (click)="changeAttackAmount(1000, '-')">-1000</button>
+        </div>
+        <div class="amount-input" tooltipPlacement="right" tooltip="Attack Amount">
+            <i class="fa fa-tint"></i>
+            <input [(ngModel)]="attackAmount" type="number" min="10" step="10" class="form-control" />
+        </div>
+    </div>
+    <div class="sort-panel">
+        <div class="sort-container info-box">
+            <span class="sort-label">Level</span>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" [class.active]="isSortActive('level', 1)"
+                    (click)="sortUsers('level')"><i class="fa fa-sort-numeric-asc"></i></button>
+                <button class="btn btn-default" [class.active]="isSortActive('level', -1)"
+                    (click)="sortUsers('level', true)"><i class="fa fa-sort-numeric-desc"></i></button>
+            </div>
+        </div>
+        <div class="sort-container info-box">
+            <span class="sort-label">Drops</span>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" [class.active]="isSortActive('activeCurrency', 1)"
+                    (click)="sortUsers('activeCurrency')"><i class="fa fa-sort-numeric-asc"></i></button>
+                <button class="btn btn-default" [class.active]="isSortActive('activeCurrency', -1)"
+                    (click)="sortUsers('activeCurrency', true)"><i class="fa fa-sort-numeric-desc"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="filter-panel">
+        <div class="btn-group-vertical filter-container info-box">
+            <button class="btn btn-default btn-tooltip" [class.active]="levelFilterActive" (click)="toggleFilterLevel()">
+                <i class="fa fa-arrows-h" tooltipPlacement="left" tooltip="Toggle Filter"></i></button>
+            <button class="btn btn-default btn-tooltip bold-number" (click)="toggleLevelFilterGap()">
+                <span tooltipPlacement="bottom" tooltip="Levels Around Mine">{{levelFilterGap}}</span></button>
+        </div>
+        <div class="filter-container info-box">
+            <span class="filter-label" [class.active]="dropsFilterActive">Drops Filter</span>
+            <div class="flexbox">
+                <input (input)="dropsFilterFrom = $event.target.value" (keyup)="filterDrops()" type="number" placeholder="from" class="form-control" />
+                <input (input)="dropsFilterTo = $event.target.value" (keyup)="filterDrops()" type="number" placeholder="to" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div *ngIf="!loadedUsers" class="loading-users">
+        <span>Loading users...</span>
+        <div class='uil-ring-css-default'><div></div></div>
+    </div>
+    <p-dataTable *ngIf="loadedUsers" [value]="viewUsers" [rows]="15" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5, 10, 15]" [responsive]="true">
+        <p-column header="Name">
+            <template pTemplate let-user="rowData">
+                <img src="{{user.avatarUrl}}" class="img-circle" />
+                <span>&nbsp;&nbsp;{{user.name}}</span>
+                <span class="levelCircle">{{user.level}}</span>
+            </template>
+        </p-column>
+        <p-column header="Drops">
+            <template pTemplate let-col let-user="rowData">
+                <span>{{util.formatNumber(user.activeCurrency)}} <i class="fa fa-tint"></i></span>
+            </template>
+        </p-column>
+        <p-column styleClass="col-button" header="Attack">
+            <template pTemplate let-user="rowData">
+                <button type="button" (click)="attackUser(user)" class="btn-attack"><i class="fa fa-bolt"></i></button>
+            </template>
+        </p-column>
+    </p-dataTable>
+</div>
+
+<modal #duelInfo class="duel-info">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title {{duelOutcome}}">You {{duelOutcome}}</h4>
+    </modal-header>
+    <modal-body *ngIf="user && attackedUser">
+        <div class="level-view flexbox">
+            <span class="level" [class.leveledUp]="runLevelUp">{{userLevel}}</span>
+            <div class="exp-view">
+                <div class="flexbox flexbox-space-between">
+                    <span class="text-uppercase">Level</span>
+                    <!-- Experience from total and percentage -->
+                    <span class="exp-info text-right">
+                        {{user.experience}} / {{user.experienceTreshold}}
+                        &nbsp;{{user.getExperiencePercent()}}%
+                    </span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" [class.no-transition]="isTransitionDisabled" [ngStyle]="{'width': oldExpPercent + '%'}"></div>
+                    <div class="progress-bar progress-bar-success" [class.no-transition]="isTransitionDisabled" [ngStyle]="{'width': gainedExpPercent + '%'}"></div>
+                </div>
+            </div>
+            <span class="gained-exp text-success">+{{gainedExp}}</span>
+        </div>
+        <button class="btn btn-primary btn-rematch center-block"
+                (click)="rematch()">
+                Rematch
+        </button>
+    </modal-body>
+</modal>

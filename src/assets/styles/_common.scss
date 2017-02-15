@@ -1,0 +1,251 @@
+.loading {
+    @extend .flexbox, .flexbox-col;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+html {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.noscroll {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.content-wrapper {
+    position: relative;
+    overflow-y: auto;
+
+    .content-container {
+        background-color: $bg-color-secondary;
+        overflow-y: auto;
+
+        .router-outlet {
+            flex: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: lighten($gray, 10%);
+        }
+    }
+}
+
+.stick-top {
+    @extend .flexbox, .flexbox-col;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 0 $padding-base-horizontal;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+100&1+0,0+100 */
+    background: -moz-linear-gradient(top,  rgba($bg-color-secondary,1) 50%, rgba($bg-color-secondary,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba($bg-color-secondary,1)50%,rgba($bg-color-secondary,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba($bg-color-secondary,1) 50%,rgba($bg-color-secondary,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.flexbox {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    min-height: 0;
+
+    &.flexbox-col {
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    }
+
+    &.flexbox-row {
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    }
+
+    &.flexbox-right-align {
+        -webkit-box-pack: end;
+            -ms-flex-pack: end;
+                justify-content: flex-end;
+    }
+
+    &.flexbox-stretch {
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                    -ms-grid-row-align: stretch;
+                align-items: stretch;
+    }
+
+    &.flexbox-space-between {
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+    }
+}
+
+.flex-fill {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+}
+
+.stretch-height {
+    min-height: 100%;
+    height: 100%;
+    margin-bottom: 0;
+}
+
+.border {
+    border: 1px solid #464545;
+
+    &.border-top,
+    &.border-left,
+    &.border-bottom,
+    &.border-right {
+        border-width: 0;
+    }
+
+    &.border-top {
+        border-top-width: 1px;
+    }
+
+    &.border-left {
+        border-left-width: 1px;
+    }
+
+    &.border-bottom {
+        border-bottom-width: 1px;
+    }
+
+    &.border-right {
+        border-right-width: 1px;
+    }
+}
+
+.scroll-style::-webkit-scrollbar {
+	width: 9px;
+	background-color: $bg-color-primary;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: $bg-color-highlight;
+}
+
+.no-transition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.btn-tooltip {
+    padding: 0;
+
+    i, span {
+        display: block;
+        padding: $padding-base-vertical $padding-base-horizontal;
+    }
+}
+
+.info-box {
+    background-color: $bg-color-highlight;
+    border-radius: $border-radius-base;
+    margin-right: $padding-base-horizontal;
+    margin-bottom: $padding-base-horizontal;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    [class*="label"] {
+        font-weight: 700;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        padding: $padding-base-vertical $padding-base-horizontal;
+    }
+
+    .label-top {
+        border-top-left-radius: $border-radius-base;
+        border-top-right-radius: $border-radius-base;
+    }
+
+    .label-bottom {
+        border-bottom-left-radius: $border-radius-base;
+        border-bottom-right-radius: $border-radius-base;
+    }
+
+    .label-left {
+        border-top-left-radius: $border-radius-base;
+        border-bottom-left-radius: $border-radius-base;
+        display: inline-block;
+    }
+}
+
+#app-container .simple-notification {
+    &.error {
+        background-color: $brand-danger;
+        .sn-progress-loader span {
+            background: darken($brand-danger, 10%);
+        }
+    }
+
+    &.success {
+        background-color: $brand-success;
+        .sn-progress-loader span {
+            background: darken($brand-success, 15%);
+        }
+    }
+
+    &.alert {
+        background-color: $brand-warning;
+        .sn-progress-loader span {
+            background: darken($brand-warning, 10%);
+        }
+    }
+
+    &.info {
+        background-color: $brand-info;
+        .sn-progress-loader span {
+            background: darken($brand-info, 10%);
+        }
+    }
+}
+
+@media(max-width: $screen-md - 1) {
+    .tooltip {
+        display: none !important;
+    }
+}

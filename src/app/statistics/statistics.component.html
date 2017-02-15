@@ -1,0 +1,47 @@
+<div *ngIf="user" class="statistics-container">
+    <div class="stats-row">
+        <div class="info-box">
+            <span class="stat-label text-success">Wins</span>
+            <div class="overlay-wrapper">
+                <div class="overlay"><span class="percent-label">{{formatPercent(getWins())}}%</span></div>
+                <span class="amount-label">{{util.formatNumber(user.wins)}}</span>
+            </div>
+        </div>
+        <div class="info-box">
+            <span class="stat-label text-success">Won</span>
+            <div class="overlay-wrapper">
+                <div class="overlay"><span class="percent-label">{{formatPercent(getWon())}}%</span></div>
+                <span class="amount-label">{{util.formatNumber(user.wonAmount)}}&nbsp;<i class="fa fa-tint text-success"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="stats-row">
+        <div class="info-box">
+            <span class="stat-label text-danger">Losses</span>
+            <div class="overlay-wrapper">
+                <div class="overlay"><span class="percent-label">{{formatPercent(getLosses())}}%</span></div>
+                <span class="amount-label">{{util.formatNumber(user.losses)}}</span>
+            </div>
+        </div>
+        <div class="info-box">
+            <span class="stat-label text-danger">Lost</span>
+            <div class="overlay-wrapper">
+                <div class="overlay"><span class="percent-label">{{formatPercent(getLost())}}%</span></div>
+                <span class="amount-label">{{util.formatNumber(user.lostAmount)}}&nbsp;<i class="fa fa-tint text-danger"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="stats-row">
+        <div class="info-box">
+            <span class="stat-label text-primary">Referrals</span>
+            <span class="amount-label">{{util.formatNumber(user.referrals)}}</span>
+        </div>
+        <div class="info-box">
+            <span class="stat-label text-primary">Referral Drops</span>
+            <div class="overlay-wrapper">
+                <div class="overlay"><span class="percent-label">{{formatPercent(getReferralCurrency())}}%</span></div>
+                <span class="amount-label">{{util.formatNumber(user.referralCurrency)}}&nbsp;<i class="fa fa-tint text-primary"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
